@@ -1,5 +1,6 @@
 import paramiko
 import os
+import time
 from dotenv import load_dotenv
 load_dotenv()
 privatekey = os.getenv("PRIVATE_PATH")
@@ -13,6 +14,10 @@ for i in range(1, 6):
                 allow_agent=False,
                 look_for_keys=False, 
                 disabled_algorithms=dict(pubkeys=['rsa-sha2-512', 'rsa-sha2-256']))
-    stdin, stdout, stderr = ssh.exec_command("sh runn | grep hostname")
-    print(stdout.read().decode())
+    print("connected to "+network+str(i))
+    if i == 1:
+        stdin, stdout, stderr = ssh.exec_command("sh runn")
+        with open('R0_running_config', 'w') as file:
+            file.write(stdout.read().decode())
+        print("Saved R0 running config file R0_running_config")
     ssh.close()
