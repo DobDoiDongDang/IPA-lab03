@@ -1,4 +1,6 @@
-from testfsm import R1Config
+from textfsmlab import R1Config
+from textfsmlab import R2Config
+from textfsmlab import S1Config
 from netmiko import ConnectHandler
 from dotenv import load_dotenv
 import re
@@ -29,8 +31,8 @@ for i in range(3):
     info.append(router_connection.send_command("sh int des", use_textfsm=True))
     router_connection.disconnect()
 
-
-def test_S0():
+def test_S1():
+    S1Config()
     g00, g01, g02 = "", "", ""
     for i in range(len(info[0])):
         if info[0][i]["port"] == "Gi0/0":
@@ -44,6 +46,7 @@ def test_S0():
     assert g02 == "Connect to PC"
 
 def test_R1():
+    R1Config()
     g00, g01, g02 = "", "", ""
     for i in range(len(info[1])):
         if info[1][i]["port"] == "Gi0/0":
@@ -57,6 +60,7 @@ def test_R1():
     assert g02 == "Connect to Gig 0/1 of R2"
 
 def test_R2():
+    R2Config()
     g00, g01, g02, g03 = "", "", "", ""
     for i in range(len(info[2])):
         if info[2][i]["port"] == "Gi0/0":
