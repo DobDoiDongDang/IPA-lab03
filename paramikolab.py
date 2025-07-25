@@ -1,9 +1,18 @@
 import paramiko
-import time
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
+privatekey = os.getenv("PRIVATE_PATH")
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-""" pkey=key, look_for_keys=True """
-ssh.connect(hostname='172.31.38.1', username='admin', key_filename="C:\\Users\\darks\\Desktop\\KEY\\opensshadmin",allow_agent=False,look_for_keys=False)
-ssh.close()
+network='172.31.38.'
+for i in range(1, 6):
+    ssh.connect(hostname=network+str(i), 
+                username='admin', 
+                key_filename=privatekey,
+                allow_agent=False,
+                look_for_keys=False, 
+                disabled_algorithms=dict(pubkeys=['rsa-sha2-512', 'rsa-sha2-256']))
+    stdin, stdout, stderr = ssh.exec_command("sh runn | grep hostname")
+    print(stdout.read().decode())
+    ssh.close()
