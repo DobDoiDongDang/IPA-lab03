@@ -40,12 +40,12 @@ devices = {
                 "process_id": 69,
                 "vrf": "control-data",
                 "networks": [
-                    {"ip": "10.38.1.0", "wildcard": "0.0.0.255", "area": 20},
-                    {"ip": "10.38.2.0", "wildcard": "0.0.0.255", "area": 20}
+                    {"ip": "10.38.1.0", "wildcard": "0.0.0.255", "area": 0},
+                    {"ip": "10.38.2.0", "wildcard": "0.0.0.255", "area": 0}
                 ],
                 "default_originate": False
             },
-            "access_list": ["172.31.38.0 0.0.0.15", "192.168.86.0 0.0.0.225"]
+            "access_list": ["172.31.38.0 0.0.0.15", "192.168.86.0 0.0.0.255"]
         }
     },
     "R2": {
@@ -56,12 +56,17 @@ devices = {
                 "process_id": 69,
                 "vrf": "control-data",
                 "networks": [
-                    {"ip": "10.38.2.0", "wildcard": "0.0.0.255", "area": 20},
-                    {"ip": "10.38.3.0", "wildcard": "0.0.0.255", "area": 20}
+                    {"ip": "10.38.2.0", "wildcard": "0.0.0.255", "area": 0},
+                    {"ip": "10.38.3.0", "wildcard": "0.0.0.255", "area": 0}
                 ],
                 "default_originate": True
             },
-            "access_list": ["172.31.38.0 0.0.0.15", "192.168.86.0 0.0.0.225"]
+            "access_list": ["172.31.38.0 0.0.0.15", "192.168.86.0 0.0.0.225"], 
+            "loopback": {
+                "name": "Loopback0",
+                "ip": "127.0.0.2",
+                "mask": "255.255.255.255"
+            }
         }
     }
 }
