@@ -28,18 +28,19 @@ S1_config_commands = ["vlan 101", "name control-data", "exit",
                     "access-list 2 permit 172.31.38.0 0.0.0.15",
                     "access-list 2 permit 192.168.86.0 0.0.0.225",
                     "line vty 0 4", "access-class 2 in vrf-also"]
-R1_config_commands = ["router ospf 69 vrf control-data", 
-                    "network 10.38.1.0 255.255.255.0 area 20", 
-                    "network 10.38.2.0 255.255.255.0 area 20", "exit", "no access-list 2", 
+R1_config_commands = ["int lo0", "ip add 127.0.0.2 255.255.255.255", "exit", 
+                    "router ospf 69 vrf control-data", 
+                    "network 10.38.1.0 255.255.255.0 area 0", 
+                    "network 10.38.2.0 255.255.255.0 area 0", "exit", "no access-list 2", 
                     "access-list 2 permit 172.31.38.0 0.0.0.15",
                     "access-list 2 permit 192.168.86.0 0.0.0.225",
                     "line vty 0 4", "access-class 2 in vrf-also"]
 R2_config_commands = ["router ospf 69 vrf control-data", 
-                    "network 10.38.2.0 255.255.255.0 area 20", 
-                    "network 10.38.3.0 255.255.255.0 area 20", 
+                    "network 10.38.2.0 255.255.255.0 area 0", 
+                    "network 10.38.3.0 255.255.255.0 area 0", 
                     "default-information originate", "exit",  "no access-list 2", 
                     "access-list 2 permit 172.31.38.0 0.0.0.15",
-                    "access-list 2 permit 192.168.86.0 0.0.0.225",
+                    "access-list 2 permit 192.168.86.0 0.0.0.255",
                     "line vty 0 4", "access-class 2 in vrf-also"]
 S1_connnect = ConnectHandler(**S1)
 output = S1_connnect.send_config_set(S1_config_commands)
